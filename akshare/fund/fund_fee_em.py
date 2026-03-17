@@ -77,7 +77,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
         temp_df["原费率"] = temp_df["原费率"].str.strip()
         temp_df["天天基金优惠费率"] = temp_df["天天基金优惠费率"].str.strip()
     elif indicator in ("申购费率（前端）", "申购费率（后端）"):
-        if indicator in tables_dict:
+        if indicator in tables_dict:  # 部分基金(如023961)仅有申购费率（后端）字段
             temp_df = tables_dict[indicator]
             if "原费率|天天基金优惠费率 银行卡购买|活期宝购买" not in temp_df.columns:
                 # assert temp_df.columns.tolist() == ["适用金额", "适用期限", "费率"]
@@ -111,7 +111,7 @@ def fund_fee_em(symbol: str = "015641", indicator: str = "认购费率") -> pd.D
                 "天天基金优惠费率-活期宝购买"
             ].str.strip()
     elif indicator in ("赎回费率", "赎回费率（前端）", "赎回费率（后端）"):
-        if indicator in tables_dict:
+        if indicator in tables_dict:  # 部分基金(如017817)无任何赎回费率数据
             temp_df = tables_dict[indicator]
             if "原费率|天天基金优惠费率" in temp_df.columns:
                 temp_df[["原费率", "天天基金优惠费率"]] = temp_df[
